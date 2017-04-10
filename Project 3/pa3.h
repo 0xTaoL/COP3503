@@ -1,14 +1,16 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 class stack {
     vector<string> vect;
     int max = 0;
-    unsigned current = 0;
+    int current = 0;
 public:
+
     void push(string data) {
         vect.push_back(data);
         current++;
@@ -34,5 +36,10 @@ public:
 
     int nestedLoopCount(){
         return max - vect.size();
+    }
+
+    void removeDuplicates(){
+        sort(vect.begin(), vect.end());
+        vect.erase(unique(vect.begin(), vect.end()), vect.end());
     }
 };

@@ -19,6 +19,9 @@ int main() {
     }
 
     stack depth;
+    stack constants;
+    stack identifiers;
+    stack badSyntaxs;
 
     bool comma = false;
     bool semicolon = false;
@@ -34,13 +37,52 @@ int main() {
     bool end = false;
     bool forr = false;
 
+    //goes line by line and checks what is there
     int count = 0;
     string line;
     while( getline(file, line) ) {
         cout << "Line " << count++ << ": " << line << std::endl;
 
-        for(int i = 0; i<line.length(); i++){
 
+        //finds constants (numbers)
+        for (unsigned i = 0; i < line.size(); i++) {
+            if (isdigit(line.at(i))) {
+                unsigned j = 0;
+                while (i+j < line.size() && isdigit(line.at(i+j))) {
+                    j++;
+                }
+                string constant = line.substr(i,j);
+                constants.push(constant);
+                i += j;
+            }
+        }
+
+        //same as above but finds identifiers
+        for (unsigned i = 0; i < line.size(); i++) {
+            if (isupper(line.at(i))) {
+                unsigned j = 0;
+                while (i+j < line.size() && islower(line.at(i+j))) {
+                    j++;
+                }
+                string indentifier = line.substr(i,j);
+                identifiers.push(indentifier);
+                i += j;
+            }
+        }
+
+        //same as above but finds misspelled syntax
+        for (unsigned i = 0; i < line.size(); i++) {
+            if (isupper(line.at(i))) {
+                unsigned j = 0;
+                while (i+j < line.size() && isupper(line.at(i+j))) {
+                    j++;
+                }
+                string badSyntax = line.substr(i,j);
+                if(!badSyntax.compare("BEGIN") && !badSyntax.compare("FOR") && !badSyntax.compare("END")) {
+                    badSyntaxs.push(badSyntax);
+                }
+                i += j;
+            }
         }
 
         //finds delimiters and operators and keywords
@@ -110,8 +152,16 @@ int main() {
     }
     cout << "\n";
     cout << "Identifier: ";
+    identifiers.removeDuplicates();
+    while (identifiers.size()>0){
+        cout << identifiers.pop() + " ";
+    }
     cout << "\n";
     cout << "Constant: ";
+    constants.removeDuplicates();
+    while (constants.size()>0){
+        cout << constants.pop() + " ";
+    }
     cout << "\n";
     cout << "Operators: ";
     if(plus){
@@ -148,5 +198,9 @@ int main() {
     }
     cout << "\n\n";
     cout << "Syntax Error(s): ";
+    badSyntaxs.removeDuplicates();
+    while (badSyntaxs.size()>0){
+        cout << badSyntaxs.pop() + " ";
+    }
     return 0;
 }
