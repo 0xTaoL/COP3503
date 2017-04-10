@@ -39,10 +39,20 @@ int main() {
 
     //goes line by line and checks what is there
     int count = 0;
+    int parentError = 0;
     string line;
     while( getline(file, line) ) {
         cout << "Line " << count++ << ": " << line << std::endl;
 
+        //figures out parenthesis unbalences
+        for (unsigned i = 0; i < line.size(); i++) {
+            if(line[i] == '('){
+                parentError++;
+            }
+            if(line[i] == ')'){
+                parentError--;
+            }
+        }
 
         //finds constants (numbers)
         for (unsigned i = 0; i < line.size(); i++) {
@@ -78,6 +88,7 @@ int main() {
                     j++;
                 }
                 string badSyntax = line.substr(i,j);
+                badSyntaxs.push(badSyntax);
                 i += j;
             }
         }
@@ -197,7 +208,23 @@ int main() {
     cout << "Syntax Error(s): ";
     badSyntaxs.removeDuplicates();
     while (badSyntaxs.size()>0){
-        cout << badSyntaxs.pop() + " ";
+        string test = badSyntaxs.pop();
+        if(test == "BEGIN"){
+            continue;
+        }
+        if(test == "FOR"){
+            continue;
+        }
+        if(test == "END"){
+            continue;
+        }
+        cout << test + " ";
+    }
+    if(parentError>0){
+        cout << ") ";
+    }
+    if(parentError<0){
+        cout << "( ";
     }
     return 0;
 }

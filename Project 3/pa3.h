@@ -31,7 +31,7 @@ public:
     }
 
     int size(){
-        vect.size();
+        return vect.size();
     }
 
     int nestedLoopCount(){
