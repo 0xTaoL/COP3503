@@ -18,10 +18,7 @@ int main() {
         return 1;
     }
 
-
-    stack parenthesis;
-    stack identifier;
-    stack constant;
+    stack depth;
 
     bool comma = false;
     bool semicolon = false;
@@ -42,15 +39,21 @@ int main() {
     while( getline(file, line) ) {
         cout << "Line " << count++ << ": " << line << std::endl;
 
+        for(int i = 0; i<line.length(); i++){
+
+        }
+
         //finds delimiters and operators and keywords
         if(line.find("FOR") != string::npos){
             forr = true;
         }
         if(line.find("BEGIN") != string::npos){
             begin = true;
+            depth.push("BEGIN");
         }
         if(line.find("END") != string::npos){
             end = true;
+            depth.pop();
         }
         if(line.find(";") != string::npos){
             semicolon = true;
@@ -64,29 +67,36 @@ int main() {
         if(line.find("/") != string::npos){
             div = true;
         }
-        if(line.find("++") != string::npos){
-            plusplus = true;
-        }
         if(line.find("+") != string::npos){
-            plus = true;
+            if(line.find("++") != string::npos){
+                plusplus = true;
+            }
+            else {
+                plus = true;
+            }
         }
         if(line.find("-") != string::npos){
-            minus = true;
-        }
-        if(line.find("--") != string::npos){
-            minusminus = true;
+            if(line.find("--") != string::npos){
+                minusminus = true;
+            }
+            else {
+                minus = true;
+            }
         }
         if(line.find("=") != string::npos){
-            equals = true;
-        }
-        if(line.find("==") != string::npos){
-            equalsequals = true;
+            if(line.find("==") != string::npos){
+                equalsequals = true;
+            }
+            else {
+                equals = true;
+            }
         }
     }
 
     file.close();
 
     cout << "The depth of the nested loop(s) is ";
+    cout << depth.nestedLoopCount();
     cout << "\n";
     cout << "Keywords: ";
     if(begin){
