@@ -59,7 +59,7 @@ int main() {
 
         //same as above but finds identifiers
         for (unsigned i = 0; i < line.size(); i++) {
-            if (isupper(line.at(i))) {
+            if (islower(line.at(i))) {
                 unsigned j = 0;
                 while (i+j < line.size() && islower(line.at(i+j))) {
                     j++;
@@ -78,9 +78,6 @@ int main() {
                     j++;
                 }
                 string badSyntax = line.substr(i,j);
-                if(!badSyntax.compare("BEGIN") && !badSyntax.compare("FOR") && !badSyntax.compare("END")) {
-                    badSyntaxs.push(badSyntax);
-                }
                 i += j;
             }
         }
