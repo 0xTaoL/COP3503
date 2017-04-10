@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Syferfyre/GitSyferfyre/COP3503/Project 3/pa3.cpp
+iostream
+-
+fstream
+-
+string
+-
+pa3.h
+C:/Users/Syferfyre/GitSyferfyre/COP3503/Project 3/pa3.h
+
+C:/Users/Syferfyre/GitSyferfyre/COP3503/Project 3/pa3.h
+iostream
+-
+string
+-
+vector
+-
+
