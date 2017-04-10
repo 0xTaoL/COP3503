@@ -40,11 +40,14 @@ int main() {
     //goes line by line and checks what is there
     int count = 0;
     int parentError = 0;
+    int numBegin = 0;
+    int numEnd = 0;
+    int numFor = 0;
     string line;
     while( getline(file, line) ) {
         cout << "Line " << count++ << ": " << line << std::endl;
 
-        //figures out parenthesis unbalences
+        //figures out if there are unbalanced parenthesis
         for (unsigned i = 0; i < line.size(); i++) {
             if(line[i] == '('){
                 parentError++;
@@ -96,14 +99,17 @@ int main() {
         //finds delimiters and operators and keywords
         if(line.find("FOR") != string::npos){
             forr = true;
+            numFor++;
         }
         if(line.find("BEGIN") != string::npos){
             begin = true;
             depth.push("BEGIN");
+            numBegin++;
         }
         if(line.find("END") != string::npos){
             end = true;
             depth.pop();
+            numEnd++;
         }
         if(line.find(";") != string::npos){
             semicolon = true;
@@ -225,6 +231,25 @@ int main() {
     }
     if(parentError<0){
         cout << "( ";
+    }
+    if(numBegin<numEnd){
+
+    }
+
+    //this part will state the excess keywords
+    //Scott Liu stated in discussion "it will be acceptable for your program to declare
+    // either extra or missing keywords as syntax errors"
+    if(numBegin<numEnd){
+        cout << "END ";
+    }
+    if(numBegin>numEnd){
+        cout << "BEGIN ";
+    }
+    if(numFor>numEnd){
+        cout << "FOR ";
+    }
+    if(numFor<numEnd){
+        cout << "END ";
     }
     return 0;
 }

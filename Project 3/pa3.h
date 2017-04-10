@@ -6,11 +6,11 @@
 using namespace std;
 
 class stack {
+private:
     vector<string> vect;
     int max = 0;
     int current = 0;
 public:
-
     void push(string data) {
         vect.push_back(data);
         current++;
