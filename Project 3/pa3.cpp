@@ -232,9 +232,6 @@ int main() {
     if(parentError<0){
         cout << "( ";
     }
-    if(numBegin<numEnd){
-
-    }
 
     //this part will state the excess keywords
     //Scott Liu stated in discussion "it will be acceptable for your program to declare
